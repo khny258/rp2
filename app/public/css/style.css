@@ -1,3 +1,7 @@
+.body {
+  background-image: url("musician.png");
+ }
+
 .chirp {
   padding: 10px;
   margin: 10px;
