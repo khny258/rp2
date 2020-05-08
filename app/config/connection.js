@@ -1,20 +1,21 @@
-// *********************************************************************************
-// CONNECTION.JS - THIS FILE INITIATES THE CONNECTION TO MYSQL
-// *********************************************************************************
-
-// Require mysql
+// Dependencies
 var mysql = require("mysql");
 
-// Set up our connection information
-var connection = mysql.createConnection({
-  port: 3306,
-  host: "localhost",
-  user: "root",
-  password: "2125",
-  database: "music"
-});
+var connection;
 
-// Connect to the database
+// Connect with JawsDB database on our Heroku app
+// 	If not found, then run locally
+if (process.env.JAWSDB_URL) {
+	connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+	connection = mysql.createConnection({
+	  host: "localhost",
+	  user: "root",
+	  password: "2125",
+	  database: "music"
+	});
+}
+
 connection.connect(function(err) {
   if (err) {
     console.error("error connecting: " + err.stack);
@@ -23,5 +24,5 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 });
 
-// Export connection
+// Export our MySQL connection
 module.exports = connection;
